@@ -1,11 +1,96 @@
 package objectOriented;
 
-public class Master_Branch {
+import java.util.ArrayList;
+import java.util.Scanner;
 
-	public static void main(String[] args){
-		System.out.println("Welcome to Address Book Program in AdressBookMain class on Master Branch");
-		
+public class AddressBook5 {
+	private ArrayList<ContactDetails> contactArrayList;
+	private AddressBook5 () {
+		contactArrayList = new ArrayList<>(); //using ArrayList in place of array
 	}
-
+	
+	private void addContactDetails(String firstName, String lastName, String address, String state, int zip, long phoneNo, String emailId) {
+		ContactDetails contactDetail = new ContactDetails();
+		contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo, emailId);
+		contactArrayList.add(contactDetail);
+	}
+	
+	private void editContactDetails(String firstName, String lastName, String address, String state, int zip, long phoneNo, String emailId) {
+		for(int i = 0; i < contactArrayList.size(); i++) {
+			ContactDetails contactDetail = contactArrayList.get(i);
+			if(contactDetail.getFirstName().equals(firstName) && contactDetail.getLastName().equals(lastName)) {
+				contactDetail.setContactDetails(firstName, lastName, address, state, zip, phoneNo, emailId);
+				contactArrayList.set(i, contactDetail);
+				System.out.println("Address changed");
+				System.out.println(contactArrayList.get(i));
+				break;
+			}
+		}
+	}
+	
+	private void deleteContactDetails(String firstName, String lastName) {
+		for(int i = 0; i < contactArrayList.size(); i++) {
+			ContactDetails contactDetail = contactArrayList.get(i);
+			if(contactDetail.getFirstName().equals(firstName) && contactDetail.getLastName().equals(lastName)) {
+				contactArrayList.remove(i);
+				System.out.println("Contact deleted");
+				break;
+			}
+		} 
+	}
+	
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		AddressBook5 addressBook = new AddressBook5();
+		System.out.println("No. of contact details to enter: ");
+		int numOfContact = sc.nextInt();
+		sc.nextLine();
+		//adding
+		for(int i = 0; i < numOfContact; i++) {
+			System.out.println("First Name: ");
+			String firstName = sc.nextLine();
+			System.out.println("Last Name: ");
+			String lastName = sc.nextLine();
+			System.out.println("Address: ");
+			String address = sc.nextLine();
+			System.out.println("State: ");
+			String state = sc.nextLine();
+			System.out.println("ZIP: " );
+			int zip = sc.nextInt();
+			System.out.println("Phone No: ");
+			long phoneNo = sc.nextLong();
+			sc.nextLine();
+			System.out.println("Email ID: ");
+			String emailId = sc.nextLine();
+			addressBook.addContactDetails(firstName, lastName, address, state, zip, phoneNo, emailId);
+		}
+		
+		//editing
+		System.out.println("Enter details for contact record you want to edit");
+		System.out.println("First Name: ");
+		String firstName = sc.nextLine();
+		System.out.println("Last Name: ");
+		String lastName = sc.nextLine();
+		System.out.println("Address: ");
+		String address = sc.nextLine();
+		System.out.println("State: ");
+		String state = sc.nextLine();
+		System.out.println("ZIP: " );
+		int zip = sc.nextInt();
+		System.out.println("Phone No: ");
+		long phoneNo = sc.nextLong();
+		sc.nextLine();
+		System.out.println("Email ID: ");
+		String emailId = sc.nextLine();
+		addressBook.editContactDetails(firstName, lastName, address, state, zip, phoneNo, emailId);
+		
+		//deleting
+		System.out.println("Enter first name of contact to be deleted: ");
+		firstName = sc.nextLine();
+		System.out.println("Enter last name of contact to be deleted: ");
+		lastName = sc.nextLine();
+		addressBook.deleteContactDetails(firstName, lastName);		
+	}
 }
+
 
